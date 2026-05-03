@@ -33,8 +33,8 @@ namespace FundTransfer.Domain.Test.Handlers
         {
             var wrong = new StatusTransferCommand(transactionId);
             var commandResult = await _handler.Handle(wrong, default);
-            Assert.False(commandResult.Sucess);
-            Assert.True(((IReadOnlyCollection<Notification>)commandResult.Data).Count == 1);
+            Assert.That(commandResult.Sucess, Is.False);
+            Assert.That(((IReadOnlyCollection<Notification>)commandResult.Data).Count, Is.EqualTo(1));
         }
 
         [Test]
@@ -51,9 +51,9 @@ namespace FundTransfer.Domain.Test.Handlers
             _handler = new FundTransferHandler(transferRepository.Object, bus.Object);
             var right = new StatusTransferCommand(transactionId);
             var commandResult = await _handler.Handle(right, default);
-            Assert.False(commandResult.Sucess);
-            Assert.True(commandResult.Message == "Invalid transaction number");
-            Assert.True((TransferStatusEnum)commandResult.Data == TransferStatusEnum.Error);
+            Assert.That(commandResult.Sucess, Is.False);
+            Assert.That(commandResult.Message, Is.EqualTo("Invalid transaction number"));
+            Assert.That((TransferStatusEnum)commandResult.Data, Is.EqualTo(TransferStatusEnum.Error));
         }
 
         [Test]
@@ -71,9 +71,9 @@ namespace FundTransfer.Domain.Test.Handlers
             _handler = new FundTransferHandler(transferRepository.Object, bus.Object);
             var right = new StatusTransferCommand(transactionId);
             var commandResult = await _handler.Handle(right, default);
-            Assert.True(commandResult.Sucess);
-            Assert.True(commandResult.Message == "");
-            Assert.True((TransferStatusEnum)commandResult.Data == TransferStatusEnum.InQueue);
+            Assert.That(commandResult.Sucess, Is.True);
+            Assert.That(commandResult.Message, Is.EqualTo(""));
+            Assert.That((TransferStatusEnum)commandResult.Data, Is.EqualTo(TransferStatusEnum.InQueue));
         }
 
         [Test]
@@ -91,8 +91,8 @@ namespace FundTransfer.Domain.Test.Handlers
             _handler = new FundTransferHandler(transferRepository.Object, bus.Object);
             var right = new StatusTransferCommand(transactionId);
             var commandResult = await _handler.Handle(right, default);
-            Assert.False(commandResult.Sucess);
-            Assert.True(commandResult.Message == message);
+            Assert.That(commandResult.Sucess, Is.False);
+            Assert.That(commandResult.Message, Is.EqualTo(message));
         }
     }
 }

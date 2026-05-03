@@ -30,8 +30,8 @@ namespace FundTransfer.Domain.Test.Handlers
         {
             var wrong = new TransferCommand(accountOrigin, accountDestination, value);
             var commandResult = await _handler.Handle(wrong, default);
-            Assert.True(commandResult.Sucess);
-            Assert.True(commandResult.Message == "Error");
+            Assert.That(commandResult.Sucess, Is.True);
+            Assert.That(commandResult.Message, Is.EqualTo("Error"));
         }
 
         [Test]
@@ -42,8 +42,8 @@ namespace FundTransfer.Domain.Test.Handlers
         {
             var wrong = new TransferCommand(accountOrigin, accountDestination, value);
             var commandResult = await _handler.Handle(wrong, default);
-            Assert.True(commandResult.Sucess);
-            Assert.True(commandResult.Message == "InQueue");
+            Assert.That(commandResult.Sucess, Is.True);
+            Assert.That(commandResult.Message, Is.EqualTo("InQueue"));
         }
     }
 }

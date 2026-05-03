@@ -14,8 +14,8 @@ namespace FundTransfer.Domain.Test.Commands
         {
             var wrong = new TransferCommand(accountOrigin, accountDestination, value);
             wrong.Validate();
-            Assert.True(wrong.IsInvalid);
-            Assert.True(wrong.Notifications.Count == 3);
+            Assert.That(wrong.IsInvalid, Is.True);
+            Assert.That(wrong.Notifications.Count, Is.EqualTo(3));
         }
 
         [Test]
@@ -25,8 +25,8 @@ namespace FundTransfer.Domain.Test.Commands
         {
             var right = new TransferCommand(accountOrigin, accountDestination, value);
             right.Validate();
-            Assert.True(right.IsValid);
-            Assert.True(right.Notifications.Count == 0);
+            Assert.That(right.IsValid, Is.True);
+            Assert.That(right.Notifications.Count, Is.EqualTo(0));
         }
     }
 }
